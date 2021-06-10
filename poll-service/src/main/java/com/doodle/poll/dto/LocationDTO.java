@@ -1,4 +1,4 @@
-package com.doodle.poll.domain;
+package com.doodle.poll.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Location {
+public class LocationDTO {
 
     @JsonProperty("locationId")
     private String id;

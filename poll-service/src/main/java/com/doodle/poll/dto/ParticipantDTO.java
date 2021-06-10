@@ -1,4 +1,4 @@
-package com.doodle.poll.domain;
+package com.doodle.poll.dto;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Participant {
+public class ParticipantDTO {
 
     private long id;
     private String name;

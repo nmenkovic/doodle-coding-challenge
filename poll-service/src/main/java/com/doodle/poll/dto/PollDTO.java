@@ -1,9 +1,10 @@
-package com.doodle.poll.domain;
+package com.doodle.poll.dto;
 
+import com.doodle.poll.domain.Device;
+import com.doodle.poll.domain.PollType;
+import com.doodle.poll.domain.PreferencesType;
+import com.doodle.poll.domain.State;
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.TextIndexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 import java.util.List;
@@ -13,10 +14,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "polls")
-public class Poll {
+public class PollDTO {
 
-    @Id
     private String id;
     private String adminKey;
     private Date latestChange;
@@ -31,14 +30,13 @@ public class Poll {
     private PreferencesType preferencesType;
     private State state;
     private String locale;
-    @TextIndexed
     private String title;
     private String description;
-    private Location location;
-    private Initiator initiator;
-    private List<Option> options;
+    private LocationDTO location;
+    private InitiatorDTO initiator;
+    private List<OptionDTO> options;
     private String optionsHash;
-    private List<Participant> participants;
+    private List<ParticipantDTO> participants;
     private List<String> invitees;
     private Device device;
     private PreferencesType levels;

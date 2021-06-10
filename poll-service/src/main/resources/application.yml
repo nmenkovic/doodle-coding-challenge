@@ -1,2 +1,6 @@
 poll-service:
   file-to-load: poll-service/src/main/assets/polls.json
+
+spring:
+  jackson:
+    default-property-inclusion: NON_NULL

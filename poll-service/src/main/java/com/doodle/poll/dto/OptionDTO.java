@@ -1,4 +1,4 @@
-package com.doodle.poll.domain;
+package com.doodle.poll.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
@@ -10,7 +10,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Option {
+public class OptionDTO {
 
     private String text;
     private Date start;

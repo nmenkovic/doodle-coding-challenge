@@ -1,18 +1,45 @@
 package com.doodle.poll.web;
 
+import com.doodle.poll.domain.Poll;
+import com.doodle.poll.dto.PollDTO;
+import com.doodle.poll.service.PollService;
+import com.doodle.poll.transformer.PollDataTransformer;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collections;
+import java.time.LocalDate;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/1")
 public class PollServiceController {
 
-    @GetMapping(value = "/polls")
-    public List<Object> findPolls() {
-        return Collections.emptyList();
+    private final PollService pollService;
+    private final PollDataTransformer pollDataTransformer;
+
+    @Autowired
+    public PollServiceController(PollService pollService, PollDataTransformer pollDataTransformer) {
+
+        this.pollService = pollService;
+        this.pollDataTransformer = pollDataTransformer;
     }
+
+    @GetMapping(value = "/polls")
+    public List<PollDTO> findPolls(@RequestParam(name = "user", required = false) String user,
+                                   @RequestParam(name = "title", required = false) String title,
+                                   @RequestParam(value = "fromDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate) {
+
+        log.info("Finding polls requested for email: {}, text: {}, and date: {}", user, title, fromDate);
+
+        List<Poll> pollsByTitleAndDate = pollService.findPollsByTitleAndDate(user, title, fromDate);
+
+        return pollDataTransformer.pollDTOsFromPolls(pollsByTitleAndDate);
+    }
+
 }

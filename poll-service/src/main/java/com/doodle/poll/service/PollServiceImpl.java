@@ -2,12 +2,14 @@ package com.doodle.poll.service;
 
 import com.doodle.poll.domain.Poll;
 import com.doodle.poll.exception.PollCreationException;
+import com.doodle.poll.repository.PollQueryRepository;
 import com.doodle.poll.repository.PollRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -15,10 +17,13 @@ import java.util.List;
 public class PollServiceImpl implements PollService {
 
     private final PollRepository pollRepository;
+    private final PollQueryRepository pollQueryRepository;
 
     @Autowired
-    public PollServiceImpl(PollRepository pollRepository) {
+    public PollServiceImpl(PollRepository pollRepository, PollQueryRepository pollQueryRepository) {
+
         this.pollRepository = pollRepository;
+        this.pollQueryRepository = pollQueryRepository;
     }
 
     @Override
@@ -29,6 +34,11 @@ public class PollServiceImpl implements PollService {
             throw new PollCreationException("Failed to save polls - the input list is empty!");
         }
         return pollRepository.saveAll(pollsToSave);
+    }
+
+    @Override
+    public List<Poll> findPollsByTitleAndDate(String user, String title, LocalDate fromDate) {
+        return pollQueryRepository.findPollsByTitleAndDate(user, title, fromDate);
     }
 
 }

@@ -1,7 +1,6 @@
-package com.doodle.poll.domain;
+package com.doodle.poll.dto;
 
 import lombok.*;
-import org.springframework.data.mongodb.core.index.TextIndexed;
 
 import java.util.TimeZone;
 
@@ -10,10 +9,9 @@ import java.util.TimeZone;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Initiator {
+public class InitiatorDTO {
 
     private String name;
-    @TextIndexed
     private String email;
     private TimeZone timeZone;
     private boolean notify;
