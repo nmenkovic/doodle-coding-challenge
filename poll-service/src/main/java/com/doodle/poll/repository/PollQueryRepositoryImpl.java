@@ -1,7 +1,6 @@
 package com.doodle.poll.repository;
 
 import com.doodle.poll.domain.Poll;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -27,11 +26,11 @@ public class PollQueryRepositoryImpl implements PollQueryRepository {
 
         Query query = new Query();
 
-        if (!StringUtils.isEmpty(user)) {
+        if (user != null && !user.isEmpty()) {
             query.addCriteria(Criteria.where("initiator.email").regex(user));
         }
 
-        if (!StringUtils.isEmpty(title)) {
+        if (title != null && !title.isEmpty()) {
             query.addCriteria(TextCriteria.forDefaultLanguage().matchingAny(title));
         }
 
