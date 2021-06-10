@@ -3,6 +3,7 @@ package com.doodle.poll.service;
 import com.doodle.poll.domain.Poll;
 import com.doodle.poll.exception.PollCreationException;
 import com.doodle.poll.repository.PollRepository;
+import com.doodle.poll.service.util.TestPolls;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,11 +29,7 @@ public class PollServiceTest {
     @Test
     public void savePollsTest_HappyPath() {
 
-        // @todo: move poll creation into another class!
-        Poll pollToSave = new Poll();
-        pollToSave.setId("123abc");
-        pollToSave.setTitle("Test Poll");
-
+        Poll pollToSave = TestPolls.createPoll();
         List<Poll> pollsToSave = Collections.singletonList(pollToSave);
 
         Mockito.when(pollRepository.saveAll(any()))
