@@ -1,0 +1,2 @@
+poll-service:
+  file-to-load: poll-service/src/main/assets/polls.json
