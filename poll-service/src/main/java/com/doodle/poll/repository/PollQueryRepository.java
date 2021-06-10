@@ -8,5 +8,15 @@ import java.util.List;
 
 public interface PollQueryRepository {
 
+    /**
+     * Finds {@link Poll}s by given fields' values.
+     * If parameters' values are omitted, returns all {@link Poll}s.
+     *
+     * @param user will be compared to initiator.email
+     * @param title will be compared to title
+     * @param fromDate will be compared to initiated
+     *
+     * @return filtered {@link Poll}s
+     */
     List<Poll> findPollsByTitleAndDate(String user, String title, LocalDate fromDate);
 }

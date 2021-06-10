@@ -8,13 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Slf4j
 @Component
-public class PollDataInitializer implements ApplicationListener<ApplicationReadyEvent> {
+public class PollDataInitializer implements ApplicationListener<ApplicationReadyEvent>, Ordered {
 
     private final String fileToLoad;
 
@@ -32,6 +33,11 @@ public class PollDataInitializer implements ApplicationListener<ApplicationReady
         this.fileToLoad = fileToLoad;
         this.pollDataLoader = pollDataLoader;
         this.pollService = pollService;
+    }
+
+    @Override
+    public int getOrder() {
+        return Ordered.LOWEST_PRECEDENCE;
     }
 
     @Override

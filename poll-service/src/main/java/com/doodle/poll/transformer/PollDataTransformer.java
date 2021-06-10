@@ -7,5 +7,12 @@ import java.util.List;
 
 public interface PollDataTransformer {
 
-    List<PollDTO> pollDTOsFromPolls(List<Poll> poll);
+    /**
+     * Transforms a list of {@link PollDTO}s to a list of {@Poll}s
+     *
+     * @param polls polls to be transformed
+     *
+     * @return {@link PollDTO} list created from given {@link Poll} list
+     */
+    List<PollDTO> pollDTOsFromPolls(List<Poll> polls);
 }

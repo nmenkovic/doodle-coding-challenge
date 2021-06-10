@@ -35,7 +35,7 @@ public class PollServiceController {
                                    @RequestParam(name = "title", required = false) String title,
                                    @RequestParam(value = "fromDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate) {
 
-        log.info("Finding polls requested for email: {}, text: {}, and date: {}", user, title, fromDate);
+        log.info("POST /api/1/polls?user={}&title={}&fromDate={}", user, title, fromDate);
 
         List<Poll> pollsByTitleAndDate = pollService.findPollsByTitleAndDate(user, title, fromDate);
 
