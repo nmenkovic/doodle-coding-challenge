@@ -1,0 +1,148 @@
+{
+	"info": {
+		"_postman_id": "5486d174-098c-497c-b4e0-f3d85ed06a81",
+		"name": "Doodle coding assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all polls",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/1/polls",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"1",
+						"polls"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all polls - the fifth page of size 3",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/1/polls?page=5&size=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"1",
+						"polls"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "5"
+						},
+						{
+							"key": "size",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get polls by title",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46cGFzc3dvcmQ=",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/1/polls?title=Marvel",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"1",
+						"polls"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "John%20Doe",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "mh%2Bsample@doodle.com",
+							"disabled": true
+						},
+						{
+							"key": "title",
+							"value": "Marvel"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get polls initiated after given date",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/1/polls?fromDate=2017-01-25",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"1",
+						"polls"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "John%20Doe",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "mh%2Bsample@doodle.com",
+							"disabled": true
+						},
+						{
+							"key": "fromDate",
+							"value": "2017-01-25"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
