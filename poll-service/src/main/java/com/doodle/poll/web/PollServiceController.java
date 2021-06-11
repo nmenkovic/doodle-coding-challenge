@@ -4,6 +4,8 @@ import com.doodle.poll.domain.Poll;
 import com.doodle.poll.dto.PollDTO;
 import com.doodle.poll.service.PollService;
 import com.doodle.poll.transformer.PollDataTransformer;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,6 +20,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping(value = "/api/1")
+@Api(tags = "Doodle Polls")
 public class PollServiceController {
 
     private final PollService pollService;
@@ -30,6 +33,7 @@ public class PollServiceController {
         this.pollDataTransformer = pollDataTransformer;
     }
 
+    @ApiOperation(value = "This endpoint is used for finding the polls by user, title, and/or date")
     @GetMapping(value = "/polls")
     public List<PollDTO> findPolls(@RequestParam(name = "user", required = false) String user,
                                    @RequestParam(name = "title", required = false) String title,
