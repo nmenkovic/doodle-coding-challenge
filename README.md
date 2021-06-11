@@ -24,12 +24,15 @@ logical next step was to replace the embedded MongoDB with the one ran as Docker
 MongoDB, the application itself had to be dockerized. The application dockerizing took me a little more than I expected - it 
 turned out that the order of maven plugins was not correct (spring-boot-maven-plugin was executed after 
 dockerfile-maven-plugin, so Main-Class was not in the MANIFEST from Docker image's jar) and I learned it the hard way :)
-Once I wriggled out of it, I added API documentation.
+Once I wriggled out of it, I added API documentation and implemented pagination.
 
-### What more could’ve been done
+### If I had more time, I would...
 
-- Implementation of authentication and authorization
-- Paging the data returned by exposed REST method
+- Make certain classes more testable
+- Focus on testing - both unit, and integration
+- Implement authentication and authorization
+- Document every single field used in API
+- Try out Spring Data REST
 
 ## Running the application
 
@@ -47,7 +50,7 @@ Once I wriggled out of it, I added API documentation.
 
 ```
 Find the polls by given attributes
-GET http://localhost:8080/api/1/polls?fromDate=2016-01-27&title=superheroes
+GET http://localhost:8080/api/1/polls?fromDate=2016-01-27&title=Marvel
 ```
 
 #### API documentation

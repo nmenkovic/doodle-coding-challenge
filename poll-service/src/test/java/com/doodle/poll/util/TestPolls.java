@@ -1,4 +1,4 @@
-package com.doodle.poll.service.util;
+package com.doodle.poll.util;
 
 import com.doodle.poll.domain.*;
 

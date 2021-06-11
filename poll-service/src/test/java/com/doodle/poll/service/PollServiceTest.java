@@ -3,7 +3,7 @@ package com.doodle.poll.service;
 import com.doodle.poll.domain.Poll;
 import com.doodle.poll.exception.PollCreationException;
 import com.doodle.poll.repository.PollRepository;
-import com.doodle.poll.service.util.TestPolls;
+import com.doodle.poll.util.TestPolls;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
