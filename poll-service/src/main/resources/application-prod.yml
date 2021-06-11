@@ -2,16 +2,10 @@ poll-service:
   file-to-load: /assets/polls.json
 
 spring:
-  jackson:
-    default-property-inclusion: NON_NULL
-  profiles:
-    active: default
-  application:
-    name: poll-service
   data:
     mongodb:
-      host: localhost
-      port: 27019
+      host: mongodb
+      port: 27017
       database: polls
       username: doodle
       password: doodle

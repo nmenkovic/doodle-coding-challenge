@@ -7,9 +7,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -21,8 +21,12 @@ public class PollDataLoaderImpl implements PollDataLoader {
         log.info("Loading poll data from file: {}", fileToLoad);
 
         List<Poll> loadedPolls;
-        try {
-            loadedPolls = new ObjectMapper().readValue(new FileInputStream(fileToLoad), new TypeReference<List<Poll>>() {});
+        try (InputStream inputStream = getClass().getResourceAsStream(fileToLoad)) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String fileContent = reader.lines()
+                    .collect(Collectors.joining(System.lineSeparator()));
+
+            loadedPolls = new ObjectMapper().readValue(fileContent, new TypeReference<List<Poll>>() {});
         } catch (IOException e) {
             log.error("Poll data loading from file: {} failed! Reason: {}", fileToLoad, e.getLocalizedMessage());
             throw new PollDataLoadingException("Failed to load poll data from file!", e);
