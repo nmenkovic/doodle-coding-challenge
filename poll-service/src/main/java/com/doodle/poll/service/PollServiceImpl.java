@@ -6,10 +6,14 @@ import com.doodle.poll.repository.PollQueryRepository;
 import com.doodle.poll.repository.PollRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -37,8 +41,14 @@ public class PollServiceImpl implements PollService {
     }
 
     @Override
-    public List<Poll> findPollsByTitleAndDate(String user, String title, LocalDate fromDate) {
-        return pollQueryRepository.findPollsByTitleAndDate(user, title, fromDate);
+    public Page<Poll> findPollsByTitleAndDate(String user, String title, LocalDate fromDate, Pageable pageable) {
+
+        Date queryDate = null;
+        if (fromDate != null) {
+            queryDate = Date.from(fromDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+        }
+
+        return pollQueryRepository.findPollsByTitleAndDate(user, title, queryDate, pageable);
     }
 
 }

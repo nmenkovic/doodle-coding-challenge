@@ -2,6 +2,8 @@ package com.doodle.poll.transformer;
 
 import com.doodle.poll.domain.*;
 import com.doodle.poll.dto.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,11 +13,13 @@ import java.util.stream.Collectors;
 public class PollDataTransformerImpl implements PollDataTransformer {
 
     @Override
-    public List<PollDTO> pollDTOsFromPolls(List<Poll> polls) {
+    public Page<PollDTO> pollDTOsFromPolls(Page<Poll> polls) {
 
-        return polls.stream()
+        List<PollDTO> dtoPolls = polls.stream()
                 .map(this::pollDTOFromPoll)
                 .collect(Collectors.toList());
+
+        return new PageImpl<>(dtoPolls);
     }
     
     private PollDTO pollDTOFromPoll(Poll poll) {

@@ -2,8 +2,8 @@ package com.doodle.poll.transformer;
 
 import com.doodle.poll.domain.Poll;
 import com.doodle.poll.dto.PollDTO;
+import org.springframework.data.domain.Page;
 
-import java.util.List;
 
 public interface PollDataTransformer {
 
@@ -12,7 +12,7 @@ public interface PollDataTransformer {
      *
      * @param polls polls to be transformed
      *
-     * @return {@link PollDTO} list created from given {@link Poll} list
+     * @return paged {@link PollDTO} list created from given {@link Poll} list
      */
-    List<PollDTO> pollDTOsFromPolls(List<Poll> polls);
+    Page<PollDTO> pollDTOsFromPolls(Page<Poll> polls);
 }

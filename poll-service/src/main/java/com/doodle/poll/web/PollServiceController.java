@@ -8,6 +8,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,13 +37,15 @@ public class PollServiceController {
 
     @ApiOperation(value = "This endpoint is used for finding the polls by user, title, and/or date")
     @GetMapping(value = "/polls")
-    public List<PollDTO> findPolls(@RequestParam(name = "user", required = false) String user,
+    public Page<PollDTO> findPolls(@RequestParam(name = "user", required = false) String user,
                                    @RequestParam(name = "title", required = false) String title,
-                                   @RequestParam(value = "fromDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate) {
+                                   @RequestParam(value = "fromDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate fromDate,
+                                   Pageable pageable) {
 
-        log.info("POST /api/1/polls?user={}&title={}&fromDate={}", user, title, fromDate);
+        log.info("POST /api/1/polls?user={}&title={}&fromDate={}&page={}&size={}",
+                user, title, fromDate, pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort());
 
-        List<Poll> pollsByTitleAndDate = pollService.findPollsByTitleAndDate(user, title, fromDate);
+        Page<Poll> pollsByTitleAndDate = pollService.findPollsByTitleAndDate(user, title, fromDate, pageable);
 
         return pollDataTransformer.pollDTOsFromPolls(pollsByTitleAndDate);
     }

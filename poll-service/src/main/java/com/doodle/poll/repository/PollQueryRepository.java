@@ -2,9 +2,10 @@ package com.doodle.poll.repository;
 
 
 import com.doodle.poll.domain.Poll;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.util.Date;
 
 public interface PollQueryRepository {
 
@@ -15,8 +16,9 @@ public interface PollQueryRepository {
      * @param user will be compared to initiator.email
      * @param title will be compared to title
      * @param fromDate will be compared to initiated
+     * @param pageable size of the page that will be returned, its number, and sorting criteria
      *
      * @return filtered {@link Poll}s
      */
-    List<Poll> findPollsByTitleAndDate(String user, String title, LocalDate fromDate);
+    Page<Poll> findPollsByTitleAndDate(String user, String title, Date fromDate, Pageable pageable);
 }

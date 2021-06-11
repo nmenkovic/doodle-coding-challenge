@@ -2,13 +2,16 @@ package com.doodle.poll.repository;
 
 import com.doodle.poll.domain.Poll;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -22,7 +25,7 @@ public class PollQueryRepositoryImpl implements PollQueryRepository {
     }
 
     @Override
-    public List<Poll> findPollsByTitleAndDate(String user, String title, LocalDate fromDate) {
+    public Page<Poll> findPollsByTitleAndDate(String user, String title, Date fromDate, Pageable pageable) {
 
         Query query = new Query();
 
@@ -37,7 +40,11 @@ public class PollQueryRepositoryImpl implements PollQueryRepository {
         if (fromDate != null) {
             query.addCriteria(Criteria.where("initiated").gte(fromDate));
         }
+        query.with(pageable);
 
-        return mongoTemplate.find(query, Poll.class);
+        List<Poll> polls = mongoTemplate.find(query, Poll.class);
+
+        return PageableExecutionUtils.getPage(polls, pageable, () -> mongoTemplate.count(Query.of(query).limit(-1).skip(-1), Poll.class));
+
     }
 }
